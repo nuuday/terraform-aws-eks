@@ -5,6 +5,8 @@ locals {
 }
 
 resource "aws_iam_role" "external_dns" {
+  count = var.external_dns_enable ? 1 : 0
+
   name_prefix = "${module.eks.cluster_id}-ext-dns"
 
   assume_role_policy = <<EOF
@@ -19,7 +21,7 @@ resource "aws_iam_role" "external_dns" {
       "Action": "sts:AssumeRoleWithWebIdentity",
       "Condition": {
         "StringEquals": {
-          "${local.oidc_issuer}:sub": "system:serviceaccount:${kubernetes_namespace.external_dns.metadata.0.name}:external-dns"
+          "${local.oidc_issuer}:sub": "system:serviceaccount:${kubernetes_namespace.external_dns.0.metadata.0.name}:external-dns"
         }
       }
     }
@@ -31,8 +33,10 @@ EOF
 }
 
 resource "aws_iam_role_policy" "external_dns" {
+  count = var.external_dns_enable ? 1 : 0
+
   name = "ExternalDns"
-  role = aws_iam_role.external_dns.id
+  role = aws_iam_role.external_dns.0.id
 
   policy = <<EOF
 {
@@ -63,17 +67,21 @@ EOF
 }
 
 resource "kubernetes_namespace" "external_dns" {
+  count = var.external_dns_enable ? 1 : 0
+
   metadata {
     name = "external-dns"
   }
 }
 
 resource "helm_release" "external_dns" {
+  count = var.external_dns_enable ? 1 : 0
+
   name       = "external-dns"
   chart      = "external-dns"
   version    = local.external_dns_chart_version
   repository = "https://charts.bitnami.com/bitnami"
-  namespace  = kubernetes_namespace.external_dns.metadata.0.name
+  namespace  = kubernetes_namespace.external_dns.0.metadata.0.name
 
   set {
     name  = "provider"
@@ -137,7 +145,7 @@ resource "helm_release" "external_dns" {
   # This is achieved through "IAM Roles for Service Accounts" (IRSA).
   set {
     name  = "rbac.serviceAccountAnnotations.eks\\.amazonaws\\.com/role-arn"
-    value = aws_iam_role.external_dns.arn
+    value = aws_iam_role.external_dns.0.arn
     type  = "string"
   }
 
