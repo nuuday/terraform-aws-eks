@@ -19,15 +19,6 @@ data "aws_eks_cluster_auth" "cluster" {
   name = module.eks.cluster_id
 }
 
-provider "kubernetes" {
-  version = "~>1.11"
-
-  host                   = data.aws_eks_cluster.cluster.endpoint
-  cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority.0.data)
-  token                  = data.aws_eks_cluster_auth.cluster.token
-  load_config_file       = false
-}
-
 provider "helm" {
   version = "~>1.2"
 
@@ -137,6 +128,7 @@ resource "aws_security_group" "worker_https_ingress" {
     ]
   }
 }
+/*
 
 module "eks" {
   source = "github.com/terraform-aws-modules/terraform-aws-eks?ref=v12.0.0"
@@ -194,6 +186,7 @@ module "eks" {
 
   tags = local.combined_tags
 }
+*/
 
 data "http" "aws_vpc_cni" {
   url = "https://raw.githubusercontent.com/aws/amazon-vpc-cni-k8s/master/config/v${local.aws_vpc_cni_version}/aws-k8s-cni.yaml"

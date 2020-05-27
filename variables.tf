@@ -1,13 +1,3 @@
-variable "cluster_name" {
-  description = "Name of the EKS cluster."
-  type        = string
-}
-
-variable "cluster_version" {
-  description = "EKS version to provision."
-  default     = "1.16"
-}
-
 variable "ingress_enable" {
   description = "Enables or disabled public ingress through Network Load Balancer and nginx-ingress controller."
   type        = bool
@@ -62,11 +52,6 @@ variable "windows_workers_count" {
   default     = 0
 }
 
-variable "vpc_id" {
-  description = "The ID of the VPC to provision the EKS cluster, worker nodes, and load balancer into."
-  type        = string
-}
-
 variable "worker_subnet_ids" {
   description = "Subnet IDs to associate with worker nodes. Typically the private subnets of your VPC."
   type        = list(string)
@@ -76,10 +61,4 @@ variable "lb_subnet_ids" {
   description = "Subnet IDs to associate with the Network Load Balancer. Typically the public subnets of your VPC."
   type        = list(string)
   default     = []
-}
-
-variable "tags" {
-  description = "Tags to apply to all resources provisioned by this module."
-  type        = map(string)
-  default     = {}
 }
