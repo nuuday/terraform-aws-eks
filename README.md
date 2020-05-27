@@ -92,5 +92,63 @@ default backend - 404
 ExternalDNS is granted access to modify this DNS zone using [IAM Roles for Service Accounts]().
 The IAM role, policy, and ExternalDNS itself is defined in [external-dns.tf](addon-external-dns.tf).
 
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+## Requirements
 
+| Name | Version |
+|------|---------|
+| terraform | ~>0.12 |
+| aws | ~>2.60 |
+| helm | ~>1.2 |
+| http | ~>1.2 |
+| kubernetes | ~>1.11 |
 
+## Providers
+
+| Name | Version |
+|------|---------|
+| aws | ~>2.60 |
+| helm | ~>1.2 |
+| http | ~>1.2 |
+| kubernetes | ~>1.11 |
+| local | n/a |
+| null | n/a |
+
+## Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| cert\_manager\_email | The e-mail address associated with the Let's Encrypt account created. It will receive expiration warnings etc. | `string` | n/a | yes |
+| cert\_manager\_enable | Whether to deploy and configure Cert Manager with Let's Encrypt ClusterIssuers | `bool` | `false` | no |
+| cluster\_autoscaler\_enable | Whether to deploy and configure Cluster Auto Scaler | `bool` | `false` | no |
+| cluster\_name | Name of the EKS cluster | `string` | n/a | yes |
+| cluster\_version | EKS version to provision | `string` | `"1.16"` | no |
+| dns\_zone | The DNS zone to associate with this cluster. If Cert Manager is enabled, an IAM role will be created allowing Cert Manager Service Account to maintain records under this DNS zone. | `any` | n/a | yes |
+| external\_dns\_enable | Whether to deploy and configure ExternalDNS with associated Route53 DNS zone | `bool` | `false` | no |
+| ingress\_enable | Enables or disabled public ingress through Network Load Balancer and nginx-ingress controller | `bool` | n/a | yes |
+| lb\_subnet\_ids | n/a | `list(string)` | `[]` | no |
+| linux\_workers\_count | n/a | `number` | `2` | no |
+| node\_termination\_handler\_enable | Whether to deploy AWS Node Termination Handler which gracefully drains and cordons nodes backed by EC2 spot instances | `bool` | `false` | no |
+| samples\_enable | Deploys a sample NGINX and exposes it using Ingress, and if enabled, a Windows IIS exposed using ingress | `bool` | `false` | no |
+| samples\_use\_production\_cert\_issuer | If deploy\_samples is true, this determines whether to use production or staging ClusterIssuer for Let's Encrypt certs | `bool` | `false` | no |
+| tags | n/a | `map(string)` | `{}` | no |
+| vpc\_id | n/a | `string` | n/a | yes |
+| windows\_workers\_count | n/a | `number` | `0` | no |
+| worker\_subnet\_ids | n/a | `list(string)` | n/a | yes |
+
+## Outputs
+
+| Name | Description |
+|------|-------------|
+| cluster\_arn | n/a |
+| cluster\_name | n/a |
+| cluster\_oidc\_issuer\_url | n/a |
+| cluster\_version | n/a |
+| iis\_sample\_url | URL for the Windows IIS sample app. It will take a few minutes to be available due to DNS propagation. |
+| kubeconfig | n/a |
+| kubeconfig\_filename | n/a |
+| nginx\_sample\_url | URL for the NGINX sample app. It will take a few minutes to be available due to DNS propagation. |
+| oidc\_provider\_arn | n/a |
+| workers\_asg\_arns | n/a |
+
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
