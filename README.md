@@ -140,15 +140,15 @@ The IAM role, policy, and ExternalDNS itself is defined in [external-dns.tf](add
 
 | Name | Description |
 |------|-------------|
-| cluster\_arn | n/a |
-| cluster\_name | n/a |
-| cluster\_oidc\_issuer\_url | n/a |
-| cluster\_version | n/a |
+| cluster\_arn | ARN of the provisioned EKS cluster. |
+| cluster\_name | Name of the provisioned EKS cluster. |
+| cluster\_oidc\_issuer\_url | URL of the Open ID Connect issuer provisioned for EKS to allow K8s Service Accounts to assume IAM roles. |
+| cluster\_version | Version of the provisioned EKS cluster. |
 | iis\_sample\_url | URL for the Windows IIS sample app. It will take a few minutes to be available due to DNS propagation. |
-| kubeconfig | n/a |
-| kubeconfig\_filename | n/a |
+| kubeconfig | Contents of the kubeconfig for the provisioned EKS cluster. |
+| kubeconfig\_filename | Filename of the generated kubeconfig for the provisioned EKS cluster. |
 | nginx\_sample\_url | URL for the NGINX sample app. It will take a few minutes to be available due to DNS propagation. |
-| oidc\_provider\_arn | n/a |
-| workers\_asg\_arns | n/a |
+| oidc\_provider\_arn | ARN of the Open ID Connect issuer provisioned for EKS to allow K8s Service Accounts to assume IAM roles. |
+| workers\_asg\_arns | ARNs of the provisioned Auto-Scaling Groups. |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
