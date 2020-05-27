@@ -1,15 +1,15 @@
 variable "cluster_name" {
-  description = "Name of the EKS cluster"
+  description = "Name of the EKS cluster."
   type        = string
 }
 
 variable "cluster_version" {
-  description = "EKS version to provision"
+  description = "EKS version to provision."
   default     = "1.16"
 }
 
 variable "ingress_enable" {
-  description = "Enables or disabled public ingress through Network Load Balancer and nginx-ingress controller"
+  description = "Enables or disabled public ingress through Network Load Balancer and nginx-ingress controller."
   type        = bool
 }
 
@@ -19,32 +19,32 @@ variable "cert_manager_email" {
 }
 
 variable "cert_manager_enable" {
-  description = "Whether to deploy and configure Cert Manager with Let's Encrypt ClusterIssuers"
+  description = "Whether to deploy and configure Cert Manager with Let's Encrypt ClusterIssuers."
   default     = false
 }
 
 variable "cluster_autoscaler_enable" {
-  description = "Whether to deploy and configure Cluster Auto Scaler"
+  description = "Whether to deploy and configure Cluster Auto Scaler."
   default     = false
 }
 
 variable "external_dns_enable" {
-  description = "Whether to deploy and configure ExternalDNS with associated Route53 DNS zone"
+  description = "Whether to deploy and configure ExternalDNS with associated Route53 DNS zone."
   default     = false
 }
 
 variable "samples_enable" {
-  description = "Deploys a sample NGINX and exposes it using Ingress, and if enabled, a Windows IIS exposed using ingress"
+  description = "Deploys a sample NGINX and exposes it using Ingress, and if enabled, a Windows IIS exposed using ingress."
   default     = false
 }
 
 variable "samples_use_production_cert_issuer" {
-  description = "If deploy_samples is true, this determines whether to use production or staging ClusterIssuer for Let's Encrypt certs"
+  description = "If deploy_samples is true, this determines whether to use production or staging ClusterIssuer for Let's Encrypt certs."
   default     = false
 }
 
 variable "node_termination_handler_enable" {
-  description = "Whether to deploy AWS Node Termination Handler which gracefully drains and cordons nodes backed by EC2 spot instances"
+  description = "Whether to deploy AWS Node Termination Handler which gracefully drains and cordons nodes backed by EC2 spot instances."
   default     = false
 }
 
@@ -53,27 +53,33 @@ variable "dns_zone" {
 }
 
 variable "linux_workers_count" {
-  default = 2
+  description = "The number of Linux worker nodes to create through a single ASG."
+  default     = 2
 }
 
 variable "windows_workers_count" {
-  default = 0
+  description = "The number of Windows worker nodes to create through a single ASG."
+  default     = 0
 }
 
 variable "vpc_id" {
-  type = string
+  description = "The ID of the VPC to provision the EKS cluster, worker nodes, and load balancer into."
+  type        = string
 }
 
 variable "worker_subnet_ids" {
-  type = list(string)
+  description = "Subnet IDs to associate with worker nodes. Typically the private subnets of your VPC."
+  type        = list(string)
 }
 
 variable "lb_subnet_ids" {
-  type    = list(string)
-  default = []
+  description = "Subnet IDs to associate with the Network Load Balancer. Typically the public subnets of your VPC."
+  type        = list(string)
+  default     = []
 }
 
 variable "tags" {
-  type    = map(string)
-  default = {}
+  description = "Tags to apply to all resources provisioned by this module."
+  type        = map(string)
+  default     = {}
 }

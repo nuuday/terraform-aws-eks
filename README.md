@@ -119,22 +119,22 @@ The IAM role, policy, and ExternalDNS itself is defined in [external-dns.tf](add
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | cert\_manager\_email | The e-mail address associated with the Let's Encrypt account created. It will receive expiration warnings etc. | `string` | n/a | yes |
-| cert\_manager\_enable | Whether to deploy and configure Cert Manager with Let's Encrypt ClusterIssuers | `bool` | `false` | no |
-| cluster\_autoscaler\_enable | Whether to deploy and configure Cluster Auto Scaler | `bool` | `false` | no |
-| cluster\_name | Name of the EKS cluster | `string` | n/a | yes |
-| cluster\_version | EKS version to provision | `string` | `"1.16"` | no |
+| cert\_manager\_enable | Whether to deploy and configure Cert Manager with Let's Encrypt ClusterIssuers. | `bool` | `false` | no |
+| cluster\_autoscaler\_enable | Whether to deploy and configure Cluster Auto Scaler. | `bool` | `false` | no |
+| cluster\_name | Name of the EKS cluster. | `string` | n/a | yes |
+| cluster\_version | EKS version to provision. | `string` | `"1.16"` | no |
 | dns\_zone | The DNS zone to associate with this cluster. If Cert Manager is enabled, an IAM role will be created allowing Cert Manager Service Account to maintain records under this DNS zone. | `any` | n/a | yes |
-| external\_dns\_enable | Whether to deploy and configure ExternalDNS with associated Route53 DNS zone | `bool` | `false` | no |
-| ingress\_enable | Enables or disabled public ingress through Network Load Balancer and nginx-ingress controller | `bool` | n/a | yes |
-| lb\_subnet\_ids | n/a | `list(string)` | `[]` | no |
-| linux\_workers\_count | n/a | `number` | `2` | no |
-| node\_termination\_handler\_enable | Whether to deploy AWS Node Termination Handler which gracefully drains and cordons nodes backed by EC2 spot instances | `bool` | `false` | no |
-| samples\_enable | Deploys a sample NGINX and exposes it using Ingress, and if enabled, a Windows IIS exposed using ingress | `bool` | `false` | no |
-| samples\_use\_production\_cert\_issuer | If deploy\_samples is true, this determines whether to use production or staging ClusterIssuer for Let's Encrypt certs | `bool` | `false` | no |
-| tags | n/a | `map(string)` | `{}` | no |
-| vpc\_id | n/a | `string` | n/a | yes |
-| windows\_workers\_count | n/a | `number` | `0` | no |
-| worker\_subnet\_ids | n/a | `list(string)` | n/a | yes |
+| external\_dns\_enable | Whether to deploy and configure ExternalDNS with associated Route53 DNS zone. | `bool` | `false` | no |
+| ingress\_enable | Enables or disabled public ingress through Network Load Balancer and nginx-ingress controller. | `bool` | n/a | yes |
+| lb\_subnet\_ids | Subnet IDs to associate with the Network Load Balancer. Typically the public subnets of your VPC. | `list(string)` | `[]` | no |
+| linux\_workers\_count | The number of Linux worker nodes to create through a single ASG. | `number` | `2` | no |
+| node\_termination\_handler\_enable | Whether to deploy AWS Node Termination Handler which gracefully drains and cordons nodes backed by EC2 spot instances. | `bool` | `false` | no |
+| samples\_enable | Deploys a sample NGINX and exposes it using Ingress, and if enabled, a Windows IIS exposed using ingress. | `bool` | `false` | no |
+| samples\_use\_production\_cert\_issuer | If deploy\_samples is true, this determines whether to use production or staging ClusterIssuer for Let's Encrypt certs. | `bool` | `false` | no |
+| tags | Tags to apply to all resources provisioned by this module. | `map(string)` | `{}` | no |
+| vpc\_id | The ID of the VPC to provision the EKS cluster, worker nodes, and load balancer into. | `string` | n/a | yes |
+| windows\_workers\_count | The number of Windows worker nodes to create through a single ASG. | `number` | `0` | no |
+| worker\_subnet\_ids | Subnet IDs to associate with worker nodes. Typically the private subnets of your VPC. | `list(string)` | n/a | yes |
 
 ## Outputs
 
