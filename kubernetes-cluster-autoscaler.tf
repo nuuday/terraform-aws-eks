@@ -36,7 +36,6 @@ EOF
 data "aws_iam_policy_document" "cluster_autoscaler" {
   statement {
     sid = "Read"
-
     actions = [
       "autoscaling:DescribeAutoScalingGroups",
       "autoscaling:DescribeAutoScalingInstances",
@@ -44,19 +43,16 @@ data "aws_iam_policy_document" "cluster_autoscaler" {
       "autoscaling:DescribeTags",
       "ec2:DescribeLaunchTemplateVersions",
     ]
-
     resources = ["*"]
   }
 
   statement {
     sid = "Write"
-
     actions = [
       "autoscaling:SetDesiredCapacity",
       "autoscaling:TerminateInstanceInAutoScalingGroup",
       "autoscaling:UpdateAutoScalingGroup",
     ]
-
     resources = ["*"]
 
     dynamic "condition" {
@@ -80,7 +76,6 @@ resource "aws_iam_role_policy" "cluster_autoscaler" {
 
   name = "ClusterAutoscaler"
   role = aws_iam_role.cluster_autoscaler.0.id
-
   policy = data.aws_iam_policy_document.cluster_autoscaler.json
 }
 
