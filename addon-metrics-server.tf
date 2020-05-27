@@ -14,14 +14,14 @@ resource "kubernetes_namespace" "metrics_server" {
 
 resource "helm_release" "metrics_server" {
   name       = "metrics-server"
-  chart      = "metrics-server"
+  chart = "metrics-server"
   version    = local.metrics_server_chart_version
   repository = "https://kubernetes-charts.storage.googleapis.com"
   namespace  = kubernetes_namespace.metrics_server.metadata.0.name
 
   set {
     name  = "nodeSelector.kubernetes\\.io/os"
-    value = "linux"
+    value = "windows"
     type  = "string"
   }
 }
