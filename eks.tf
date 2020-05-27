@@ -1,3 +1,29 @@
+locals {
+  map_roles = concat([
+    {
+      rolearn  = "arn:aws:iam::${data.aws_caller_identity.iam.account_id}:role/administrators"
+      username = "administrator"
+      groups   = ["administrators"]
+    },
+    {
+      rolearn  = "arn:aws:iam::${data.aws_caller_identity.iam.account_id}:role/powerusers"
+      username = "poweruser"
+      groups   = ["powerusers"]
+    },
+    {
+      rolearn  = "arn:aws:iam::${data.aws_caller_identity.iam.account_id}:role/developers"
+      username = "developer"
+      groups   = ["developers"]
+    },
+    {
+      rolearn  = "arn:aws:iam::${data.aws_caller_identity.iam.account_id}:role/readonly"
+      username = "readonly"
+      groups   = ["readonly"]
+    },
+  ], var.map_roles)
+}
+
+
 module "eks" {
   source        = "terraform-aws-modules/eks/aws"
   cluster_name = var.cluster_name
@@ -53,7 +79,7 @@ module "eks" {
   write_kubeconfig = var.write_kubeconfig
   vpc_id = var.vpc_id
   tags = var.tags
-  map_roles                            = var.map_roles
+  map_roles                            = local.map_roles
   map_users                            = var.map_users
   map_accounts                         = var.map_accounts
 }

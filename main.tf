@@ -1,3 +1,10 @@
+data "aws_caller_identity" "iam" { }
+
+
+
+
+
+
 terraform {
   required_version = "~>0.12"
 
