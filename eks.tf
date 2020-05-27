@@ -21,6 +21,8 @@ locals {
       groups   = ["readonly"]
     },
   ], var.map_roles)
+
+  eks_oidc_issuer = trimprefix(module.eks.cluster_oidc_issuer_url, "https://")
 }
 
 
@@ -78,8 +80,16 @@ module "eks" {
   workers_role_name = var.workers_role_name
   write_kubeconfig = var.write_kubeconfig
   vpc_id = var.vpc_id
-  tags = var.tags
+  tags = local.tags
   map_roles                            = local.map_roles
   map_users                            = var.map_users
   map_accounts                         = var.map_accounts
+}
+
+data "aws_eks_cluster" "cluster" {
+  name = module.eks.cluster_id
+}
+
+data "aws_eks_cluster_auth" "cluster" {
+  name = module.eks.cluster_id
 }

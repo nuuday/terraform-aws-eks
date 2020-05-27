@@ -90,7 +90,7 @@ default backend - 404
 **Note** To avoid mistakes, this Terraform module creates a new DNS zone in Route53 in which ExternalDNS operates.
 
 ExternalDNS is granted access to modify this DNS zone using [IAM Roles for Service Accounts]().
-The IAM role, policy, and ExternalDNS itself is defined in [external-dns.tf](addon-external-dns.tf).
+The IAM role, policy, and ExternalDNS itself is defined in [external-dns.tf](addons/addon-external-dns.tf).
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements

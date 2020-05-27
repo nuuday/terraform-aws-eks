@@ -1,10 +1,7 @@
-resource "kubernetes_cluster_role_binding" "administrators" {
+resource "kubernetes_cluster_role_binding" "administrators_admin" {
   metadata {
     name = "administrators-cluster-admin"
-    labels = var.tags
-    annotations = {
-      Managed-By: terraform
-    }
+    labels = local.tags
   }
 
   role_ref {
@@ -19,13 +16,10 @@ resource "kubernetes_cluster_role_binding" "administrators" {
   }
 }
 
-resource "kubernetes_cluster_role_binding" "powerusers" {
+resource "kubernetes_cluster_role_binding" "powerusers_admin" {
   metadata {
     name = "powerusers-admin"
-    labels = var.tags
-    annotations = {
-      Managed-By: terraform
-    }
+    labels = local.tags
   }
 
   role_ref {
@@ -40,13 +34,10 @@ resource "kubernetes_cluster_role_binding" "powerusers" {
   }
 }
 
-resource "kubernetes_cluster_role_binding" "developers" {
+resource "kubernetes_cluster_role_binding" "developers_edit" {
   metadata {
     name = "developers-edit"
-    labels = var.tags
-    annotations = {
-      Managed-By: terraform
-    }
+    labels = local.tags
   }
 
   role_ref {
@@ -64,12 +55,8 @@ resource "kubernetes_cluster_role_binding" "developers" {
 resource "kubernetes_cluster_role_binding" "readonly_basic_user" {
   metadata {
     name = "readonly-basic-user"
-    labels = var.tags
-    annotations = {
-      Managed-By: terraform
-    }
+    labels = local.tags
   }
-
 
   role_ref {
     api_group = "rbac.authorization.k8s.io"
@@ -86,10 +73,7 @@ resource "kubernetes_cluster_role_binding" "readonly_basic_user" {
 resource "kubernetes_cluster_role_binding" "readonly_view" {
   metadata {
     name = "readonly-view"
-    labels = var.tags
-    annotations = {
-      Managed-By: terraform
-    }
+    labels = local.tags
   }
 
   role_ref {

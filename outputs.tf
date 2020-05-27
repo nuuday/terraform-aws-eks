@@ -37,8 +37,3 @@ output "cluster_oidc_issuer_url" {
   description = "URL of the Open ID Connect issuer provisioned for EKS to allow K8s Service Accounts to assume IAM roles."
   value       = module.eks.cluster_oidc_issuer_url
 }
-
-output "nginx_sample_url" {
-  description = "URL for the NGINX sample app. It will take a few minutes to be available due to DNS propagation."
-  value       = "https://${local.nginx_sample_hostname}"
-}

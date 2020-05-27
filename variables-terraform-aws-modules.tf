@@ -315,7 +315,7 @@ variable "node_groups" {
 variable "enable_irsa" {
   description = "Whether to create OpenID Connect Provider for EKS to enable IRSA"
   type        = bool
-  default     = false
+  default     = true
 }
 
 variable "eks_oidc_root_ca_thumbprint" {

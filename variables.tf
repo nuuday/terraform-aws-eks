@@ -1,64 +1,35 @@
-variable "ingress_enable" {
-  description = "Enables or disabled public ingress through Network Load Balancer and nginx-ingress controller."
-  type        = bool
+variable "cluster_aws_cni_version" {
+  default = "1.6"
+  description = "AWS CNI version to install"
+  type = string
 }
 
-variable "cert_manager_email" {
-  description = "The e-mail address associated with the Let's Encrypt account created. It will receive expiration warnings etc."
-  type        = string
+variable "metrics_server_version" {
+  default = "2.11.0"
+  description = "Kubernetes Metric Server version"
+  type = string
 }
 
-variable "cert_manager_enable" {
-  description = "Whether to deploy and configure Cert Manager with Let's Encrypt ClusterIssuers."
-  default     = false
+variable "aws_node_termination_handler_version" {
+  default = "0.7.5"
+  description = "AWS Node Termination handler version"
+  type = string
 }
 
-variable "cluster_autoscaler_enable" {
-  description = "Whether to deploy and configure Cluster Auto Scaler."
-  default     = false
+variable "aws_node_termination_handler_enabled" {
+  default = true
+  description = "Enable or Disable AWS Node Termination handler version"
+  type = bool
 }
 
-variable "external_dns_enable" {
-  description = "Whether to deploy and configure ExternalDNS with associated Route53 DNS zone."
-  default     = false
+variable "cluster_autoscaler_enabled" {
+  default = true
+  description = "Enable or Disable Cluster Autoscaler"
+  type = bool
 }
 
-variable "samples_enable" {
-  description = "Deploys a sample NGINX and exposes it using Ingress, and if enabled, a Windows IIS exposed using ingress."
-  default     = false
-}
-
-variable "samples_use_production_cert_issuer" {
-  description = "If deploy_samples is true, this determines whether to use production or staging ClusterIssuer for Let's Encrypt certs."
-  default     = false
-}
-
-variable "node_termination_handler_enable" {
-  description = "Whether to deploy AWS Node Termination Handler which gracefully drains and cordons nodes backed by EC2 spot instances."
-  default     = false
-}
-
-variable "dns_zone" {
-  description = "The DNS zone to associate with this cluster. If Cert Manager is enabled, an IAM role will be created allowing Cert Manager Service Account to maintain records under this DNS zone."
-}
-
-variable "linux_workers_count" {
-  description = "The number of Linux worker nodes to create through a single ASG."
-  default     = 2
-}
-
-variable "windows_workers_count" {
-  description = "The number of Windows worker nodes to create through a single ASG."
-  default     = 0
-}
-
-variable "worker_subnet_ids" {
-  description = "Subnet IDs to associate with worker nodes. Typically the private subnets of your VPC."
-  type        = list(string)
-}
-
-variable "lb_subnet_ids" {
-  description = "Subnet IDs to associate with the Network Load Balancer. Typically the public subnets of your VPC."
-  type        = list(string)
-  default     = []
+variable "cluster_autoscaler_version" {
+  default = "7.0.0"
+  description = "AWS Node Termination handler version"
+  type = string
 }
