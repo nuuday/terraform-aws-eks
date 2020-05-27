@@ -1,6 +1,15 @@
 name: Linting
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - '**.tf'
+
+  pull_request:
+    paths:
+      - '**.tf'
 
 jobs:
   terraform:
