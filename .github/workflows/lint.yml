@@ -4,12 +4,11 @@ on: [push, pull_request]
 
 jobs:
   terraform:
-    name: Terraform Linting
+    name: Terraform format and validate
     runs-on: ubuntu-latest
 
     steps:
-    - name: checkout
-      uses: actions/checkout@v2
+    - uses: actions/checkout@v2
 
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
@@ -30,3 +29,17 @@ jobs:
           terraform validate
           cd -
         done
+
+  docs:
+    name: Docs
+    runs-on: macOS-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Install deps
+      run: brew update && brew install pre-commit terraform-docs terraform
+
+    - name: Verify docs up-to-date
+      run: pre-commit run --show-diff-on-failure --all-files terraform_docs
+
