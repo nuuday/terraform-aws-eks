@@ -1,35 +1,35 @@
 variable "cluster_aws_cni_version" {
-  default = "1.6"
+  default     = "1.6"
   description = "AWS CNI version to install"
-  type = string
+  type        = string
 }
 
 variable "metrics_server_version" {
-  default = "2.11.0"
+  default     = "2.11.0"
   description = "Kubernetes Metric Server version"
-  type = string
+  type        = string
 }
 
 variable "aws_node_termination_handler_version" {
-  default = "0.7.5"
+  default     = "0.7.5"
   description = "AWS Node Termination handler version"
-  type = string
+  type        = string
 }
 
 variable "aws_node_termination_handler_enabled" {
-  default = true
+  default     = true
   description = "Enable or Disable AWS Node Termination handler version"
-  type = bool
+  type        = bool
 }
 
 variable "cluster_autoscaler_enabled" {
-  default = true
+  default     = true
   description = "Enable or Disable Cluster Autoscaler"
-  type = bool
+  type        = bool
 }
 
 variable "cluster_autoscaler_version" {
-  default = "7.0.0"
+  default     = "7.0.0"
   description = "AWS Node Termination handler version"
-  type = string
+  type        = string
 }

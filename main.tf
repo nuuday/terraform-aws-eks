@@ -13,7 +13,6 @@ provider "helm" {
   }
 }
 
-
 terraform {
   required_version = "~>0.12"
 
@@ -25,51 +24,11 @@ terraform {
 
 locals {
   default_tags = {
-    managed-by: "terraform"
-    terraform-module: "terraform-aws-eks"
+    managed-by : "terraform"
+    terraform-module : "terraform-aws-eks"
   }
   tags = merge(local.default_tags, var.tags)
 }
 
 data "aws_caller_identity" "iam" {}
 data "aws_region" "current" {}
-
-
-
-/*
-
-
-data "aws_vpc" "selected" {
-  id = var.vpc_id
-}
-
-
-
-data "aws_eks_cluster_auth" "cluster" {
-  name = module.eks.cluster_id
-}
-
-
-data "aws_availability_zones" "available" {}
-
-data "aws_region" "current" {}
-
-locals {
-  # oidc_issuer = trimprefix(module.eks.cluster_oidc_issuer_url, "https://")
-
-
-
-  # nginx servers will listen on these ports on the worker nodes
-  ingress_controller_node_ports = {
-    http  = 32080
-    https = 32443
-  }
-
-  module_tags = {
-    module_repos = "https://github.com/nuuday/terraform-aws-eks"
-  }
-
-  combined_tags = merge(var.tags, local.module_tags)
-}
-
-*/

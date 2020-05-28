@@ -1,8 +1,8 @@
 locals {
-  cluster_autoscaler_chart_name = "cluster-autoscaler"
+  cluster_autoscaler_chart_name   = "cluster-autoscaler"
   cluster_autoscaler_release_name = "aws-cluster-autoscaler"
-  cluster_autoscaler_namespace = "kube-system"
-  cluster_autoscaler_repository = "https://kubernetes-charts.storage.googleapis.com"
+  cluster_autoscaler_namespace    = "kube-system"
+  cluster_autoscaler_repository   = "https://kubernetes-charts.storage.googleapis.com"
 }
 
 resource "aws_iam_role" "cluster_autoscaler" {
@@ -29,8 +29,8 @@ resource "aws_iam_role" "cluster_autoscaler" {
   ]
 }
 EOF
-  depends_on = [ module.eks ]
-  tags = local.tags
+  depends_on         = [module.eks]
+  tags               = local.tags
 }
 
 data "aws_iam_policy_document" "cluster_autoscaler" {
@@ -74,8 +74,8 @@ data "aws_iam_policy_document" "cluster_autoscaler" {
 resource "aws_iam_role_policy" "cluster_autoscaler" {
   count = var.cluster_autoscaler_enabled ? 1 : 0
 
-  name = "ClusterAutoscaler"
-  role = aws_iam_role.cluster_autoscaler.0.id
+  name   = "ClusterAutoscaler"
+  role   = aws_iam_role.cluster_autoscaler.0.id
   policy = data.aws_iam_policy_document.cluster_autoscaler.json
 }
 
@@ -87,7 +87,7 @@ resource "helm_release" "cluster_autoscaler" {
   version    = var.cluster_autoscaler_version
   repository = local.cluster_autoscaler_repository
   namespace  = local.cluster_autoscaler_namespace
-  wait = false
+  wait       = false
 
   set {
     name  = "cloudProvider"

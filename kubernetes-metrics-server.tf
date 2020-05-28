@@ -1,8 +1,8 @@
 locals {
-  metrics_server_chart_name = "metrics-server"
+  metrics_server_chart_name   = "metrics-server"
   metrics_server_release_name = "metrics-server"
-  metrics_server_namespace = "kube-system"
-  metrics_server_repository = "https://kubernetes-charts.storage.googleapis.com"
+  metrics_server_namespace    = "kube-system"
+  metrics_server_repository   = "https://kubernetes-charts.storage.googleapis.com"
 }
 
 resource "helm_release" "metrics_server" {
@@ -11,7 +11,7 @@ resource "helm_release" "metrics_server" {
   version    = var.metrics_server_version
   repository = local.metrics_server_repository
   namespace  = local.metrics_server_namespace
-  wait = false
+  wait       = false
 
 
   set {
