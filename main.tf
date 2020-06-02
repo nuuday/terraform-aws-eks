@@ -1,7 +1,3 @@
-provider "aws" {
-  region = "eu-north-1"
-}
-
 provider "helm" {
   version = "~>1.2"
 
