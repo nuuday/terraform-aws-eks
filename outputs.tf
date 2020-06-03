@@ -37,3 +37,12 @@ output "cluster_oidc_issuer_url" {
   description = "URL of the Open ID Connect issuer provisioned for EKS to allow K8s Service Accounts to assume IAM roles."
   value       = module.eks.cluster_oidc_issuer_url
 }
+
+output "cluster_endpoint" {
+  description = "The endpoint for your Kubernetes API server."
+  value = data.aws_eks_cluster.cluster.endpoint
+}
+
+output "workers_asg_names" {
+  value = module.eks.workers_asg_names
+}
