@@ -24,7 +24,7 @@ locals {
     terraform-module : "terraform-aws-eks"
   }
   tags = merge(local.default_tags, var.tags)
-  }
+}
 
 data "aws_caller_identity" "iam" {}
 data "aws_region" "current" {}

@@ -1,7 +1,12 @@
 locals {
   map_roles = concat([
     {
-      rolearn  = "arn:aws:iam::${data.aws_caller_identity.iam.account_id}:role/administrators"
+      rolearn  = "arn:aws:iam::${data.aws_caller_identity.iam.account_id}:role/admin"
+      username = "administrator"
+      groups   = ["administrators"]
+    },
+    {
+      rolearn  = "arn:aws:iam::${data.aws_caller_identity.iam.account_id}:role/admin-robot"
       username = "administrator"
       groups   = ["administrators"]
     },
