@@ -24,34 +24,46 @@ variable "cluster_default_workers_enabled" {
   type        = bool
 }
 
-variable "metrics_server_enabled" {
+variable "metrics_server_enable" {
   default     = true
   description = "Enable or Disable metrics-server"
   type        = bool
 }
+variable "cilium_enable" {
+  default     = false
+  description = "Enable or Disable cilium"
+  type        = bool
+}
+variable "prometheus_enable" {
+  default     = true
+  description = "Enable or Disable prometheus"
+  type        = bool
+}
 
-variable "kube_monkey_enabled" {
+variable "loki_enable" {
+  default     = true
+  description = "Enable or Disable loki"
+  type        = bool
+}
+
+variable "kube_monkey_enable" {
   default     = true
   description = "Enable or Disable kube-monkey"
   type        = bool
 }
 
-variable "aws_node_termination_handler_enabled" {
+variable "aws_node_termination_handler_enable" {
   default     = true
   description = "Enable or Disable AWS Node Termination handler"
   type        = bool
 }
 
-variable "cluster_autoscaler_enabled" {
-  default     = true
+
+
+variable "cluster_autoscaler_enable" {
+  default     = false
   description = "Enable or Disable Cluster Autoscaler"
   type        = bool
-}
-
-variable "cluster_autoscaler_version" {
-  default     = "7.0.0"
-  description = "AWS Node Termination handler version"
-  type        = string
 }
 
 variable "cluster_scheduled_shutdown_enabled" {

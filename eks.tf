@@ -49,9 +49,7 @@ locals {
       ]
     }
   ]
-
   worker_groups_launch_template = var.cluster_default_workers_enabled ? concat(var.worker_groups_launch_template, local.worker_groups_launch_template_default) : var.worker_groups_launch_template
-
 }
 
 module "eks" {
