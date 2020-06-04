@@ -35,12 +35,6 @@ variable "metrics_server_version" {
   type        = string
 }
 
-variable "aws_node_termination_handler_version" {
-  default     = "0.7.5"
-  description = "AWS Node Termination handler version"
-  type        = string
-}
-
 variable "aws_node_termination_handler_enabled" {
   default     = true
   description = "Enable or Disable AWS Node Termination handler version"
