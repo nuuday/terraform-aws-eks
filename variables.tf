@@ -1,15 +1,10 @@
-variable "cluster_aws_cni_version" {
-  default     = "1.6"
-  description = "AWS CNI version to install"
-  type        = string
-}
+
 
 variable "cluster_default_workers_subnets" {
   default     = []
   description = "Default worker subnets"
   type        = list(string)
 }
-
 
 variable "cluster_default_workers_asg_max_size" {
   default     = 5
@@ -29,15 +24,21 @@ variable "cluster_default_workers_enabled" {
   type        = bool
 }
 
-variable "metrics_server_version" {
-  default     = "2.11.0"
-  description = "Kubernetes Metric Server version"
-  type        = string
+variable "metrics_server_enabled" {
+  default     = true
+  description = "Enable or Disable metrics-server"
+  type        = bool
+}
+
+variable "kube_monkey_enabled" {
+  default     = true
+  description = "Enable or Disable kube-monkey"
+  type        = bool
 }
 
 variable "aws_node_termination_handler_enabled" {
   default     = true
-  description = "Enable or Disable AWS Node Termination handler version"
+  description = "Enable or Disable AWS Node Termination handler"
   type        = bool
 }
 
