@@ -23,11 +23,35 @@ locals {
   ], var.map_roles)
 
   eks_oidc_issuer = trimprefix(module.eks.cluster_oidc_issuer_url, "https://")
+
+  worker_groups_launch_template_default = [
+    for subnet in var.cluster_default_workers_subnets :
+    {
+      name                    = subnet
+      override_instance_types = var.cluster_default_workers_instance_types
+      subnets                 = [subnet]
+
+      spot_instance_pools    = 4
+      asg_max_size           = var.cluster_default_workers_asg_max_size
+      asg_min_size           = 0
+      asg_desired_capacity   = 1
+      kubelet_extra_args     = "--node-labels=node.kubernetes.io/lifecycle=spot"
+      asg_recreate_on_change = true
+      public_ip              = false
+      tags = [
+        { key = "k8s.io/cluster-autoscaler/enabled", value = "true", propagate_at_launch = true },
+        { key = "k8s.io/cluster-autoscaler/${var.cluster_name}", value = "owned", propagate_at_launch = true }
+      ]
+    }
+  ]
+
+  worker_groups_launch_template = var.cluster_default_workers_enabled ? concat(var.worker_groups_launch_template, local.worker_groups_launch_template_default) : var.worker_groups_launch_template
+
 }
 
-
 module "eks" {
-  source       = "terraform-aws-modules/eks/aws"
+  source = "terraform-aws-modules/eks/aws"
+
   cluster_name = var.cluster_name
   subnets      = var.subnets
 
@@ -72,7 +96,7 @@ module "eks" {
   worker_ami_owner_id_windows                  = var.worker_ami_owner_id_windows
   worker_create_initial_lifecycle_hooks        = var.worker_create_initial_lifecycle_hooks
   worker_create_security_group                 = var.worker_create_security_group
-  worker_groups_launch_template                = var.worker_groups_launch_template
+  worker_groups_launch_template                = local.worker_groups_launch_template
   worker_security_group_id                     = var.worker_security_group_id
   worker_sg_ingress_from_port                  = var.worker_sg_ingress_from_port
   workers_additional_policies                  = var.workers_additional_policies
@@ -93,3 +117,26 @@ data "aws_eks_cluster" "cluster" {
 data "aws_eks_cluster_auth" "cluster" {
   name = module.eks.cluster_id
 }
+
+resource "aws_autoscaling_schedule" "eks_asg_on" {
+  depends_on             = [module.eks]
+  count                  = var.cluster_scheduled_shutdown_enabled ? length(module.eks.workers_asg_names) : 0
+  scheduled_action_name  = "${module.eks.workers_asg_names[count.index]}-turn-on"
+  min_size               = local.worker_groups_launch_template[count.index].asg_min_size
+  max_size               = local.worker_groups_launch_template[count.index].asg_max_size
+  desired_capacity       = local.worker_groups_launch_template[count.index].asg_desired_capacity
+  recurrence             = var.cluster_scheduled_shutdown_end
+  autoscaling_group_name = module.eks.workers_asg_names[count.index]
+}
+
+resource "aws_autoscaling_schedule" "eks_asg_off" {
+  depends_on             = [module.eks]
+  count                  = var.cluster_scheduled_shutdown_enabled ? length(module.eks.workers_asg_names) : 0
+  scheduled_action_name  = "${module.eks.workers_asg_names[count.index]}-turn-off"
+  min_size               = 0
+  max_size               = 0
+  desired_capacity       = 0
+  recurrence             = var.cluster_scheduled_shutdown_start
+  autoscaling_group_name = module.eks.workers_asg_names[count.index]
+}
+
