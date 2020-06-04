@@ -1,5 +1,5 @@
 variable "cluster_enabled_log_types" {
-  default     = []
+  default     = ["api", "audit"]
   description = "A list of the desired control plane logging to enable. For more information, see Amazon EKS Control Plane Logging documentation (https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html)"
   type        = list(string)
 }
@@ -9,7 +9,7 @@ variable "cluster_log_kms_key_id" {
   type        = string
 }
 variable "cluster_log_retention_in_days" {
-  default     = 90
+  default     = 30
   description = "Number of days to retain log events. Default retention - 90 days."
   type        = number
 }
