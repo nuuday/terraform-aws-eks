@@ -1,85 +1,81 @@
-variable "cluster_name" {
-  description = "Name of the EKS cluster."
-  type        = string
+variable "cluster_default_workers_subnets" {
+  default     = []
+  description = "Default worker subnets"
+  type        = list(string)
 }
 
-variable "cluster_version" {
-  description = "EKS version to provision."
-  default     = "1.16"
+variable "cluster_default_workers_asg_max_size" {
+  default     = 5
+  description = "Default worker asg max size"
+  type        = number
 }
 
-variable "ingress_enable" {
-  description = "Enables or disabled public ingress through Network Load Balancer and nginx-ingress controller."
+variable "cluster_default_workers_instance_types" {
+  default     = ["m5.large"]
+  description = "Default worker subnets"
+  type        = list(string)
+}
+
+variable "cluster_default_workers_enabled" {
+  default     = true
+  description = "Default worker subnets"
   type        = bool
 }
 
-variable "cert_manager_email" {
-  description = "The e-mail address associated with the Let's Encrypt account created. It will receive expiration warnings etc."
-  type        = string
+variable "metrics_server_enable" {
+  default     = true
+  description = "Enable or Disable metrics-server"
+  type        = bool
+}
+variable "cilium_enable" {
+  default     = false
+  description = "Enable or Disable cilium"
+  type        = bool
+}
+variable "prometheus_enable" {
+  default     = true
+  description = "Enable or Disable prometheus"
+  type        = bool
 }
 
-variable "cert_manager_enable" {
-  description = "Whether to deploy and configure Cert Manager with Let's Encrypt ClusterIssuers."
-  default     = false
+variable "loki_enable" {
+  default     = true
+  description = "Enable or Disable loki"
+  type        = bool
+}
+
+variable "kube_monkey_enable" {
+  default     = true
+  description = "Enable or Disable kube-monkey"
+  type        = bool
+}
+
+variable "aws_node_termination_handler_enable" {
+  default     = true
+  description = "Enable or Disable AWS Node Termination handler"
+  type        = bool
 }
 
 variable "cluster_autoscaler_enable" {
-  description = "Whether to deploy and configure Cluster Auto Scaler."
+  default     = true
+  description = "Enable or Disable Cluster Autoscaler"
+  type        = bool
+}
+
+variable "cluster_scheduled_shutdown_enabled" {
   default     = false
+  description = "Schedule worker nodes shutdown outside of business hours."
+  type        = bool
 }
 
-variable "external_dns_enable" {
-  description = "Whether to deploy and configure ExternalDNS with associated Route53 DNS zone."
-  default     = false
-}
-
-variable "samples_enable" {
-  description = "Deploys a sample NGINX and exposes it using Ingress, and if enabled, a Windows IIS exposed using ingress."
-  default     = false
-}
-
-variable "samples_use_production_cert_issuer" {
-  description = "If deploy_samples is true, this determines whether to use production or staging ClusterIssuer for Let's Encrypt certs."
-  default     = false
-}
-
-variable "node_termination_handler_enable" {
-  description = "Whether to deploy AWS Node Termination Handler which gracefully drains and cordons nodes backed by EC2 spot instances."
-  default     = false
-}
-
-variable "dns_zone" {
-  description = "The DNS zone to associate with this cluster. If Cert Manager is enabled, an IAM role will be created allowing Cert Manager Service Account to maintain records under this DNS zone."
-}
-
-variable "linux_workers_count" {
-  description = "The number of Linux worker nodes to create through a single ASG."
-  default     = 2
-}
-
-variable "windows_workers_count" {
-  description = "The number of Windows worker nodes to create through a single ASG."
-  default     = 0
-}
-
-variable "vpc_id" {
-  description = "The ID of the VPC to provision the EKS cluster, worker nodes, and load balancer into."
+variable "cluster_scheduled_shutdown_start" {
+  default     = "0 17 * * *"
+  description = "When should the scheduled shutdown start"
   type        = string
 }
 
-variable "worker_subnet_ids" {
-  description = "Subnet IDs to associate with worker nodes. Typically the private subnets of your VPC."
-  type        = list(string)
-}
-
-variable "lb_subnet_ids" {
-  description = "Subnet IDs to associate with the Network Load Balancer. Typically the public subnets of your VPC."
-  type        = list(string)
-  default     = []
-}
-
-variable "tags" {
-  description = "Tags to apply to all resources provisioned by this module."
-  type        = map(string)
-  default     = {}
+variable "cluster_scheduled_shutdown_end" {
+  default     = "0 6 * * 1-5"
+  description = "When should the schedules shutdown end"
+  type        = string
 }

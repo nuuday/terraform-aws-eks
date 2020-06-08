@@ -1,6 +1,15 @@
 name: Linting
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - '**.tf'
+
+  pull_request:
+    paths:
+      - '**.tf'
 
 jobs:
   terraform:
@@ -12,23 +21,14 @@ jobs:
 
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
+      with:
+        terraform_version: 0.12.26
 
     - name: terraform fmt
       run: terraform fmt -check -recursive -diff
 
     - name: 'module: terraform init'
       run: terraform init
-
-    - name: 'samples: terraform validate'
-      env:
-        AWS_DEFAULT_REGION: eu-central-1
-      run: |
-        for sample in $(find samples -maxdepth 1 -mindepth 1 -type d); do
-          cd $sample
-          terraform init
-          terraform validate
-          cd -
-        done
 
   docs:
     name: Docs

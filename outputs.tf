@@ -38,7 +38,23 @@ output "cluster_oidc_issuer_url" {
   value       = module.eks.cluster_oidc_issuer_url
 }
 
-output "nginx_sample_url" {
-  description = "URL for the NGINX sample app. It will take a few minutes to be available due to DNS propagation."
-  value       = "https://${local.nginx_sample_hostname}"
+output "cluster_endpoint" {
+  description = "The endpoint for your Kubernetes API server."
+  value       = data.aws_eks_cluster.cluster.endpoint
 }
+
+output "cluster_ca_certificate" {
+  description = "Cluster CA Certificate."
+  value       = data.aws_eks_cluster.cluster.certificate_authority.0.data
+}
+
+output "cluster_token" {
+  value       = data.aws_eks_cluster_auth.cluster.token
+  description = "Cluster access token."
+  sensitive   = true
+}
+
+output "workers_asg_names" {
+  value = module.eks.workers_asg_names
+}
+
