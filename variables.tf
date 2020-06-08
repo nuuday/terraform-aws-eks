@@ -1,5 +1,3 @@
-
-
 variable "cluster_default_workers_subnets" {
   default     = []
   description = "Default worker subnets"
@@ -57,8 +55,6 @@ variable "aws_node_termination_handler_enable" {
   description = "Enable or Disable AWS Node Termination handler"
   type        = bool
 }
-
-
 
 variable "cluster_autoscaler_enable" {
   default     = false
