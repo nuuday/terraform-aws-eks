@@ -29,6 +29,13 @@ locals {
 
   eks_oidc_issuer = trimprefix(module.eks.cluster_oidc_issuer_url, "https://")
 
+  worker_groups_tags = [
+    for tag in keys(module.cluster-autoscaler.asg_tags) :
+    {
+      key = tag, value = module.cluster-autoscaler.asg_tags[tag], propagate_at_launch = true
+    }
+  ]
+
   worker_groups_launch_template_default = [
     for subnet in var.cluster_default_workers_subnets :
     {
@@ -43,10 +50,7 @@ locals {
       kubelet_extra_args     = "--node-labels=node.kubernetes.io/lifecycle=spot"
       asg_recreate_on_change = true
       public_ip              = false
-      tags = [
-        { key = "k8s.io/cluster-autoscaler/enabled", value = "true", propagate_at_launch = true },
-        { key = "k8s.io/cluster-autoscaler/${var.cluster_name}", value = "owned", propagate_at_launch = true }
-      ]
+      tags                   = local.worker_groups_tags
     }
   ]
   worker_groups_launch_template = var.cluster_default_workers_enabled ? concat(var.worker_groups_launch_template, local.worker_groups_launch_template_default) : var.worker_groups_launch_template

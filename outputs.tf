@@ -58,3 +58,6 @@ output "workers_asg_names" {
   value = module.eks.workers_asg_names
 }
 
+output "cluster_autoscaler_asg_tags" {
+  value = module.cluster-autoscaler.asg_tags
+}

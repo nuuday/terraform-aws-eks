@@ -63,3 +63,4 @@ module "aws-node-termination-handler" {
   # source = "../terraform-aws-eks-addons/modules/aws-node-termination-handler"
   enable = var.aws_node_termination_handler_enable
 }
+
