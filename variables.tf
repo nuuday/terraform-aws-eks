@@ -57,7 +57,7 @@ variable "aws_node_termination_handler_enable" {
 }
 
 variable "cluster_autoscaler_enable" {
-  default     = false
+  default     = true
   description = "Enable or Disable Cluster Autoscaler"
   type        = bool
 }
@@ -69,7 +69,7 @@ variable "cluster_scheduled_shutdown_enabled" {
 }
 
 variable "cluster_scheduled_shutdown_start" {
-  default     = "0 17 * * 1-5"
+  default     = "0 17 * * *"
   description = "When should the scheduled shutdown start"
   type        = string
 }

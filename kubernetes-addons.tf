@@ -8,9 +8,12 @@ module "cilium" {
 
 module "loki" {
   # TODO: Add extra configuration variables
-  # source = "../terraform-aws-eks-addons/modules/loki"
-  source = "github.com/nuuday/terraform-aws-eks-addons//modules/loki?ref=adding-new-modules"
-  enable = var.loki_enable
+  source = "../terraform-aws-eks-addons/modules/loki"
+  # source = "github.com/nuuday/terraform-aws-eks-addons//modules/loki?ref=adding-new-modules"
+  enable                   = var.loki_enable
+  cluster_name             = var.cluster_name
+  oidc_provider_issuer_url = module.eks.cluster_oidc_issuer_url
+  tags                     = var.tags
 }
 
 module "prometheus" {
@@ -20,19 +23,14 @@ module "prometheus" {
   enable = var.prometheus_enable
 }
 
-
-# TODO: ADD WHEN FIXED
-/*
 module "cluster-autoscaler" {
-  # source = "github.com/nuuday/terraform-aws-eks-addons//modules/kube-monkey?ref=adding-new-modules"
-  source                   = "../terraform-aws-eks-addons/modules/cluster-autoscaler"
+  source = "github.com/nuuday/terraform-aws-eks-addons//modules/kube-monkey?ref=fixing-autoscaler-1"
+
   enable                   = var.cluster_autoscaler_enable
   cluster_name             = var.cluster_name
   oidc_provider_arn        = module.eks.oidc_provider_arn
   oidc_provider_issuer_url = module.eks.cluster_oidc_issuer_url
 }
-*/
-
 
 # module "external-dns" {
 # TODO: ADD WHEN READY
