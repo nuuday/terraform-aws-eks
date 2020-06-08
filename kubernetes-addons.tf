@@ -1,7 +1,7 @@
 module "cilium" {
   # TODO: Add extra configuration variables
   # source = "../terraform-aws-eks-addons/modules/cilium"
-  source       = "github.com/nuuday/terraform-aws-eks-addons//modules/cilium?ref=?ref=v0.2.1"
+  source       = "github.com/nuuday/terraform-aws-eks-addons//modules/cilium?ref=v0.2.1"
   cluster_name = var.cluster_name
   enable       = var.cilium_enable
 }
@@ -18,7 +18,7 @@ module "loki" {
 module "prometheus" {
   # TODO: Add extra configuration variables
   # source = "../terraform-aws-eks-addons/modules/prometheus"
-  source = "github.com/nuuday/terraform-aws-eks-addons//modules/prometheus?ref=?ref=v0.2.1"
+  source = "github.com/nuuday/terraform-aws-eks-addons//modules/prometheus?ref=v0.2.1"
   enable = var.prometheus_enable
 }
 
@@ -47,19 +47,19 @@ module "cluster-autoscaler" {
 
 
 module "kube-monkey" {
-  source = "github.com/nuuday/terraform-aws-eks-addons//modules/kube-monkey?ref=?ref=v0.2.1"
+  source = "github.com/nuuday/terraform-aws-eks-addons//modules/kube-monkey?ref=v0.2.1"
   # source = "../terraform-aws-eks-addons/modules/kube-monkey"
   enable = var.kube_monkey_enable
 }
 
 module "metrics-server" {
-  source = "github.com/nuuday/terraform-aws-eks-addons//modules/metrics-server?ref=?ref=v0.2.1"
+  source = "github.com/nuuday/terraform-aws-eks-addons//modules/metrics-server?ref=v0.2.1"
   # source = "../terraform-aws-eks-addons/modules/metrics-server"
   enable = var.metrics_server_enable
 }
 
 module "aws-node-termination-handler" {
-  source = "github.com/nuuday/terraform-aws-eks-addons//modules/aws-node-termination-handler?ref=?ref=v0.2.1"
+  source = "github.com/nuuday/terraform-aws-eks-addons//modules/aws-node-termination-handler?ref=v0.2.1"
   # source = "../terraform-aws-eks-addons/modules/aws-node-termination-handler"
   enable = var.aws_node_termination_handler_enable
 }
