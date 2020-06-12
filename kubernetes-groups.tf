@@ -1,4 +1,6 @@
 resource "kubernetes_cluster_role_binding" "administrators_admin" {
+  depends_on = [module.eks]
+
   metadata {
     name   = "administrators-cluster-admin"
     labels = local.tags
@@ -14,9 +16,12 @@ resource "kubernetes_cluster_role_binding" "administrators_admin" {
     kind      = "Group"
     name      = "administrators"
   }
+
 }
 
 resource "kubernetes_cluster_role_binding" "powerusers_admin" {
+  depends_on = [module.eks]
+
   metadata {
     name   = "powerusers-admin"
     labels = local.tags
@@ -35,6 +40,8 @@ resource "kubernetes_cluster_role_binding" "powerusers_admin" {
 }
 
 resource "kubernetes_cluster_role_binding" "developers_edit" {
+  depends_on = [module.eks]
+
   metadata {
     name   = "developers-edit"
     labels = local.tags
@@ -53,6 +60,8 @@ resource "kubernetes_cluster_role_binding" "developers_edit" {
 }
 
 resource "kubernetes_cluster_role_binding" "readonly_basic_user" {
+  depends_on = [module.eks]
+
   metadata {
     name   = "readonly-basic-user"
     labels = local.tags
@@ -71,6 +80,8 @@ resource "kubernetes_cluster_role_binding" "readonly_basic_user" {
 }
 
 resource "kubernetes_cluster_role_binding" "readonly_view" {
+  depends_on = [module.eks]
+
   metadata {
     name   = "readonly-view"
     labels = local.tags
