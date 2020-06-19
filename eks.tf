@@ -7,7 +7,7 @@ locals {
     },
     {
       rolearn  = "arn:aws:iam::${data.aws_caller_identity.iam.account_id}:role/admin-robot"
-      username = "administrator"
+      username = "admin-robot"
       groups   = ["administrators"]
     },
     {
