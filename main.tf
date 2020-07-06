@@ -34,12 +34,12 @@ locals {
   loadbalancer_listeners = concat(var.ingress_controller_ingress_enable ? local.loabbalancer_listener_ingress_defaults : [], var.loadbalancer_listeners)
 
   http_tcp_listeners = [
-  for listener in local.loadbalancer_listeners:
-  {
-    port               = listener.port
-    protocol           = upper(listener.protocol)
-    target_group_index = index(local.loadbalancer_listeners, listener)
-  }
+    for listener in local.loadbalancer_listeners :
+    {
+      port               = listener.port
+      protocol           = upper(listener.protocol)
+      target_group_index = index(local.loadbalancer_listeners, listener)
+    }
   ]
 }
 

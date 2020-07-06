@@ -43,16 +43,16 @@ locals {
       override_instance_types = var.cluster_default_workers_instance_types
       subnets                 = [subnet]
 
-      spot_instance_pools    = 4
-      asg_max_size           = var.cluster_default_workers_asg_max_size
-      asg_min_size           = 0
-      asg_desired_capacity   = 1
-      kubelet_extra_args     = "--node-labels=node.kubernetes.io/lifecycle=spot"
-      asg_recreate_on_change = true
-      public_ip              = false
-      tags                   = local.worker_groups_tags
-      target_group_arns      = module.lb.target_group_arns
-      additional_security_group_ids = [ aws_security_group.worker_http_ingress[0].id ]
+      spot_instance_pools           = 4
+      asg_max_size                  = var.cluster_default_workers_asg_max_size
+      asg_min_size                  = 0
+      asg_desired_capacity          = 1
+      kubelet_extra_args            = "--node-labels=node.kubernetes.io/lifecycle=spot"
+      asg_recreate_on_change        = true
+      public_ip                     = false
+      tags                          = local.worker_groups_tags
+      target_group_arns             = module.lb.target_group_arns
+      additional_security_group_ids = [aws_security_group.worker_http_ingress[0].id]
     }
   ]
   worker_groups_launch_template = var.cluster_default_workers_enabled ? concat(var.worker_groups_launch_template, local.worker_groups_launch_template_default) : var.worker_groups_launch_template

@@ -64,10 +64,10 @@ module "ingress_controller_nginx" {
   enable            = var.ingress_controller_ingress_enable && var.ingress_controller_ingress_flavour == "nginx"
   loadbalancer_fqdn = module.lb.this_lb_dns_name
   controller_service_node_ports = [
-    for listener in local.loadbalancer_listeners:
+    for listener in local.loadbalancer_listeners :
     {
-      name = listener.name
-      port = listener.port
+      name     = listener.name
+      port     = listener.port
       nodePort = listener.nodePort
       protocol = listener.protocol
     }
