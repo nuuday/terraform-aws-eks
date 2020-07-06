@@ -1,12 +1,6 @@
 name: Linting
 
 on:
-  push:
-    branches:
-      - master
-    paths:
-      - '**.tf'
-
   pull_request:
     paths:
       - '**.tf'
