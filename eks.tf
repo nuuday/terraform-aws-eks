@@ -51,6 +51,8 @@ locals {
       asg_recreate_on_change = true
       public_ip              = false
       tags                   = local.worker_groups_tags
+      target_group_arns      = module.lb.target_group_arns
+      additional_security_group_ids = [ aws_security_group.worker_http_ingress[0].id ]
     }
   ]
   worker_groups_launch_template = var.cluster_default_workers_enabled ? concat(var.worker_groups_launch_template, local.worker_groups_launch_template_default) : var.worker_groups_launch_template

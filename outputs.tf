@@ -54,6 +54,10 @@ output "cluster_token" {
   sensitive   = true
 }
 
+output "cluster_loadbalancer_dns_name" {
+  value = module.lb.this_lb_dns_name
+}
+
 output "workers_asg_names" {
   value = module.eks.workers_asg_names
 }
