@@ -182,10 +182,10 @@ variable "ingress_controller_http_nodePort" {
 
 variable "namespaces" {
   type = list(object({
-    name = string
+    name              = string
     spinnaker_enabled = bool
   }))
-  default = []
+  default     = []
   description = "Namespaces to create in the cluster cluster"
 }
 
