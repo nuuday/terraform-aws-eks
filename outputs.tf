@@ -69,3 +69,22 @@ output "cluster_autoscaler_asg_tags" {
 output "worker_security_group_id" {
   value = module.eks.worker_security_group_id
 }
+
+output "spinnaker_serviceaccount_name" {
+  value = local.spinnaker_serviceaccount_name
+}
+output "spinnaker_serviceaccount_namespace" {
+  value = local.spinnaker_serviceaccount_namespace
+}
+
+output "spinnaker_kubeconfig" {
+  value = local.spinnaker_kubeconfig
+}
+output "spinnaker_kubeconfig_context_name" {
+  value = local.spinnaker_context_name
+}
+
+output "spinnaker_namespaces" {
+  value = [for i, z in local.spinnaker_namespaces : z.name]
+}
+
