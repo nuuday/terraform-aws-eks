@@ -11,7 +11,7 @@ locals {
       groups   = ["administrators"]
     },
     {
-      rolearn  = "arn:aws:iam::${data.aws_caller_identity.iam.account_id}:role/powerusers"
+      rolearn  = "arn:aws:iam::${data.aws_caller_identity.iam.account_id}:role/poweruser"
       username = "poweruser"
       groups   = ["powerusers"]
     },
