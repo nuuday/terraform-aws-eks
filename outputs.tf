@@ -84,7 +84,6 @@ output "spinnaker_kubeconfig_context_name" {
   value = local.spinnaker_context_name
 }
 
-output "spinnaker_namespaces" {
-  value = [for i, z in local.spinnaker_namespaces : z.name]
+output "spinnaker_enabled" {
+  value = var.spinnaker_enabled
 }
-

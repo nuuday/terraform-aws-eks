@@ -180,15 +180,12 @@ variable "ingress_controller_http_nodePort" {
   type    = number
 }
 
-variable "namespaces" {
-  type = list(object({
-    name              = string
-    spinnaker_enabled = bool
-  }))
-  default     = []
-  description = "Namespaces to create in the cluster cluster"
-}
-
 variable "spinnaker_context_prefix" {
   default = ""
+}
+
+variable "spinnaker_enabled" {
+  default = false
+  type = bool
+  description = "Enable or disable spinnaker service account"
 }
