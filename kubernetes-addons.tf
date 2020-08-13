@@ -14,7 +14,7 @@ module "cilium" {
 }
 
 module "loki" {
-  source = "github.com/nuuday/terraform-aws-eks-addons//modules/loki?ref=v0.9.4"
+  source = "github.com/nuuday/terraform-aws-eks-addons//modules/loki?ref=v0.9.5"
   # source = "../terraform-aws-eks-addons/modules/loki"
   enable                   = var.loki_enable
   cluster_name             = var.cluster_name
