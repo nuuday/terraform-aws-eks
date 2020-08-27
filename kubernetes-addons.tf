@@ -39,7 +39,7 @@ module "external-dns" {
 }
 
 module "cert-manager" {
-  source = "github.com/nuuday/terraform-aws-eks-addons//modules/cert-manager?ref=v0.9.9"
+  source = "github.com/nuuday/terraform-aws-eks-addons//modules/cert-manager?ref=v0.9.14"
   # source                   = "../terraform-aws-eks-addons/modules/cert-manager"
   enable                   = var.cert_manager_enable
   email                    = var.cert_manager_email
@@ -49,6 +49,7 @@ module "cert-manager" {
   route53_zones            = var.route53_zones
   tags                     = var.tags
   kubectl_server           = data.aws_eks_cluster.cluster.endpoint
+
 }
 
 module "kube-monkey" {
