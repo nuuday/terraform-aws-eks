@@ -70,6 +70,7 @@ module "ingress_controller_nginx" {
       nodePort = listener.nodePort
       protocol = listener.protocol
     }
+    if listener.ingress
   ]
 }
 

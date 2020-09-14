@@ -41,6 +41,7 @@ variable "loadbalancer_listeners" {
     cidr     = list(string)
     nodePort = number
     protocol = string
+    ingress  = bool
   }))
 }
 

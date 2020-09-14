@@ -28,8 +28,8 @@ locals {
   cert_manager_ingress_class       = var.cert_manager_ingress_class != "" ? var.cert_manager_ingress_class : var.ingress_controller_ingress_class
 
   loabbalancer_listener_ingress_defaults = [
-    { port = var.ingress_controller_http_port, cidr = var.ingress_controller_ingress_http_cidr, nodePort = var.ingress_controller_http_nodePort, name = "http", protocol = "tcp" },
-    { port = var.ingress_controller_https_port, cidr = var.ingress_controller_ingress_https_cidr, nodePort = var.ingress_controller_https_nodePort, name = "https", protocol = "tcp" }
+    { port = var.ingress_controller_http_port, cidr = var.ingress_controller_ingress_http_cidr, nodePort = var.ingress_controller_http_nodePort, name = "http", protocol = "tcp", ingress = true },
+    { port = var.ingress_controller_https_port, cidr = var.ingress_controller_ingress_https_cidr, nodePort = var.ingress_controller_https_nodePort, name = "https", protocol = "tcp", ingress = true }
   ]
   loadbalancer_listeners = concat(var.ingress_controller_ingress_enable ? local.loabbalancer_listener_ingress_defaults : [], var.loadbalancer_listeners)
 
