@@ -190,7 +190,7 @@ variable "spinnaker_context_prefix" {
 }
 
 variable "spinnaker_enabled" {
-  default = false
-  type = bool
+  default     = false
+  type        = bool
   description = "Enable or disable spinnaker service account"
 }

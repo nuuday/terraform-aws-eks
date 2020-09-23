@@ -82,26 +82,26 @@ locals {
 }
 
 module "prometheus" {
-  source = "github.com/nuuday/terraform-aws-eks-addons//modules/prometheus-operator?ref=v0.12.0"
-  slack_webhook = var.slack_webhook
-  ingress_enabled = length(var.route53_zones) > 0 ? true : false
+  source           = "github.com/nuuday/terraform-aws-eks-addons//modules/prometheus-operator?ref=v0.12.0"
+  slack_webhook    = var.slack_webhook
+  ingress_enabled  = length(var.route53_zones) > 0 ? true : false
   ingress_hostname = "prometheus.${var.route53_zones[0]}"
   ingress_annotations = {
-    "nginx.ingress.kubernetes.io/auth-type" = "basic"
+    "nginx.ingress.kubernetes.io/auth-type"   = "basic"
     "nginx.ingress.kubernetes.io/auth-secret" = "prometheus-basic-auth"
-    "nginx.ingress.kubernetes.io/auth-realm" = "Authentication Required"
-    "cert-manager.io/cluster-issuer" = "letsencrypt"
+    "nginx.ingress.kubernetes.io/auth-realm"  = "Authentication Required"
+    "cert-manager.io/cluster-issuer"          = "letsencrypt"
   }
 }
 
 resource "random_password" "prometheus" {
-  length = 16
+  length  = 16
   special = false
 }
 
 resource "kubernetes_secret" "prometheus" {
   metadata {
-    name = "prometheus-basic-auth"
+    name      = "prometheus-basic-auth"
     namespace = "kube-system"
   }
   data = {
