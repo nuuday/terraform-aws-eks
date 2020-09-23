@@ -51,6 +51,10 @@ variable "route53_zones" {
   description = "List of route53 zones the cluster should manage."
 }
 
+variable "slack_webhook" {
+  default = ""
+}
+
 variable "metrics_server_enable" {
   default     = true
   description = "Enable or Disable metrics-server"

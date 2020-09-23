@@ -22,13 +22,6 @@ module "loki" {
   tags                     = var.tags
 }
 
-module "prometheus" {
-  # source = "../terraform-aws-eks-addons/modules/prometheus"
-  source              = "github.com/nuuday/terraform-aws-eks-addons//modules/prometheus?ref=0.5.0"
-  enable              = var.prometheus_enable
-  alertmanager_alerts = var.ingress_controller_ingress_enable ? module.ingress_controller_nginx.prometheus_alert_manager_rules : []
-}
-
 module "external-dns" {
   source = "github.com/nuuday/terraform-aws-eks-addons//modules/external-dns?ref=v0.9.9"
   # source                   = "../terraform-aws-eks-addons/modules/external-dns"
@@ -58,7 +51,7 @@ module "kube-monkey" {
 }
 
 module "ingress_controller_nginx" {
-  source = "github.com/nuuday/terraform-aws-eks-addons//modules/nginx-ingress-controller?ref=v0.9.9"
+  source = "github.com/nuuday/terraform-aws-eks-addons//modules/nginx-ingress-controller?ref=v0.12.0"
   # source            = "../terraform-aws-eks-addons/modules/nginx-ingress-controller"
   enable            = var.ingress_controller_ingress_enable && var.ingress_controller_ingress_flavour == "nginx"
   loadbalancer_fqdn = module.lb.this_lb_dns_name
@@ -75,11 +68,43 @@ module "ingress_controller_nginx" {
 }
 
 module "metrics-server" {
-  source = "github.com/nuuday/terraform-aws-eks-addons//modules/metrics-server?ref=v0.9.9"
+  source = "github.com/nuuday/terraform-aws-eks-addons//modules/metrics-server?ref=v0.12.0"
   enable = var.metrics_server_enable
 }
 
 module "aws-node-termination-handler" {
-  source = "github.com/nuuday/terraform-aws-eks-addons//modules/aws-node-termination-handler?ref=v0.9.9"
+  source = "github.com/nuuday/terraform-aws-eks-addons//modules/aws-node-termination-handler?ref=v0.12.0"
   enable = var.aws_node_termination_handler_enable
+}
+
+locals {
+  prometheus_username = "metrics"
+}
+
+module "prometheus" {
+  source = "github.com/nuuday/terraform-aws-eks-addons//modules/prometheus-operator?ref=v0.12.0"
+  slack_webhook = var.slack_webhook
+  ingress_enabled = length(var.route53_zones) > 0 ? true : false
+  ingress_hostname = "prometheus.${var.route53_zones[0]}"
+  ingress_annotations = {
+    "nginx.ingress.kubernetes.io/auth-type" = "basic"
+    "nginx.ingress.kubernetes.io/auth-secret" = "prometheus-basic-auth"
+    "nginx.ingress.kubernetes.io/auth-realm" = "Authentication Required"
+    "cert-manager.io/cluster-issuer" = "letsencrypt"
+  }
+}
+
+resource "random_password" "prometheus" {
+  length = 16
+  special = false
+}
+
+resource "kubernetes_secret" "prometheus" {
+  metadata {
+    name = "prometheus-basic-auth"
+    namespace = "kube-system"
+  }
+  data = {
+    auth = "${local.prometheus_username}:${bcrypt(random_password.prometheus.result)}"
+  }
 }

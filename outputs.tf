@@ -87,3 +87,11 @@ output "spinnaker_kubeconfig_context_name" {
 output "spinnaker_enabled" {
   value = var.spinnaker_enabled
 }
+
+output "prometheus_ingress_password" {
+  value = random_password.prometheus.result
+}
+
+output "prometheus_ingress_username" {
+  value = local.prometheus_username
+}
