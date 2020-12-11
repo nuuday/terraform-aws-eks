@@ -16,7 +16,7 @@ MOF
 EOF
 
     environment = {
-      KUBECONFIG = "${module.eks.kubeconfig_filename}"
+      KUBECONFIG = module.eks.kubeconfig_filename
     }
   }
 }

@@ -59,8 +59,8 @@ locals {
 }
 
 module "eks" {
-  source = "terraform-aws-modules/eks/aws"
-  version = "12.1.0"
+  source  = "terraform-aws-modules/eks/aws"
+  version = "13.2.1"
 
   cluster_name = var.cluster_name
   subnets      = var.subnets

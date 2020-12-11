@@ -1,5 +1,6 @@
 module "lb" {
-  source = "github.com/terraform-aws-modules/terraform-aws-alb?ref=v5.2.0"
+  source  = "terraform-aws-modules/alb/aws"
+  version = "5.10.0"
 
   create_lb = var.loadbalancer_enabled
 
