@@ -49,6 +49,19 @@ variable "prometheus_helm_values" {
   default = {}
 }
 
+variable "thanos" {
+  type = object({
+    bucket     = string
+    region     = string
+    access_key = string
+    secret_key = string
+  })
+  default = { bucket = "", region = "", access_key = "", secret_key = "" }
+}
+variable "thanos_enabled" {
+  default = true
+  type    = bool
+}
 
 variable "route53_zones" {
   default     = []
