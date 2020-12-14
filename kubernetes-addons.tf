@@ -86,12 +86,13 @@ module "prometheus" {
   }
   thanos_enabled = var.thanos_enabled
   thanos = {
-    type       = "s3"
-    config     = {}
-    bucket     = var.thanos.bucket
-    endpoint   = "s3.${var.thanos.region}.amazonaws.com"
-    access_key = var.thanos.access_key
-    secret_key = var.thanos.secret_key
+    type = "s3"
+    config = {
+      bucket     = var.thanos.bucket
+      endpoint   = "s3.${var.thanos.region}.amazonaws.com"
+      access_key = var.thanos.access_key
+      secret_key = var.thanos.secret_key
+    }
   }
   helm_values = var.prometheus_helm_values
 }
