@@ -73,7 +73,7 @@ locals {
 }
 
 module "prometheus" {
-  source = "github.com/nuuday/terraform-aws-eks-addons//modules/prometheus-operator?ref=v0.15.0"
+  source = "github.com/nuuday/terraform-aws-eks-addons//modules/prometheus-operator?ref=v0.16.0"
   # source           = "../terraform-aws-eks-addons//modules/prometheus-operator"
   slack_webhook    = var.slack_webhook
   ingress_enabled  = length(var.route53_zones) > 0 ? true : false
