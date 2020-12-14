@@ -45,6 +45,11 @@ variable "loadbalancer_listeners" {
   }))
 }
 
+variable "prometheus_helm_values" {
+  default = {}
+}
+
+
 variable "route53_zones" {
   default     = []
   type        = list(string)

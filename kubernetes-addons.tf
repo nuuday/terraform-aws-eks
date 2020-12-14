@@ -84,6 +84,7 @@ module "prometheus" {
     "nginx.ingress.kubernetes.io/auth-realm"  = "Authentication Required"
     "cert-manager.io/cluster-issuer"          = "letsencrypt"
   }
+  helm_values = var.prometheus_helm_values
 }
 
 resource "random_password" "prometheus" {
