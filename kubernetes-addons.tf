@@ -84,6 +84,7 @@ module "prometheus" {
     "nginx.ingress.kubernetes.io/auth-realm"  = "Authentication Required"
     "cert-manager.io/cluster-issuer"          = "letsencrypt"
   }
+  enabled        = var.prometheus_enable
   thanos_enabled = var.thanos_enabled
   thanos = {
     type = "s3"
