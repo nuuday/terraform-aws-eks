@@ -73,7 +73,7 @@ locals {
 }
 
 module "prometheus" {
-  source = "github.com/nuuday/terraform-aws-eks-addons//modules/prometheus-operator?ref=v0.17.2"
+  source = "github.com/nuuday/terraform-aws-eks-addons//modules/prometheus-operator?ref=v0.17.3"
   # source           = "../terraform-aws-eks-addons//modules/prometheus-operator"
   slack_webhook    = var.slack_webhook
   ingress_enabled  = length(var.route53_zones) > 0 ? true : false
@@ -104,6 +104,7 @@ resource "random_password" "prometheus" {
 }
 
 resource "kubernetes_secret" "prometheus" {
+  count = var.prometheus_enable ? 1 : 0
   metadata {
     name      = "prometheus-basic-auth"
     namespace = "kube-system"
