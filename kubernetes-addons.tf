@@ -1,5 +1,5 @@
 module "cluster-autoscaler" {
-  source = "github.com/nuuday/terraform-aws-eks-addons//modules/cluster-autoscaler?ref=v0.15.0"
+  source = "github.com/nuuday/terraform-aws-eks-addons//modules/cluster-autoscaler?ref=v0.17.2"
   # source = "../terraform-aws-eks-addons//modules/cluster-autoscaler"
   enable                   = var.cluster_autoscaler_enable
   cluster_name             = var.cluster_name
@@ -8,7 +8,7 @@ module "cluster-autoscaler" {
 }
 
 module "loki" {
-  source = "github.com/nuuday/terraform-aws-eks-addons//modules/loki?ref=v0.15.0"
+  source = "github.com/nuuday/terraform-aws-eks-addons//modules/loki?ref=v0.17.2"
   # source = "../terraform-aws-eks-addons/modules/loki"
   enable                   = var.loki_enable
   cluster_name             = var.cluster_name
@@ -17,7 +17,7 @@ module "loki" {
 }
 
 module "external-dns" {
-  source = "github.com/nuuday/terraform-aws-eks-addons//modules/external-dns?ref=v0.15.0"
+  source = "github.com/nuuday/terraform-aws-eks-addons//modules/external-dns?ref=v0.17.2"
   # source                   = "../terraform-aws-eks-addons/modules/external-dns"
   enable                   = var.external_dns_enable
   oidc_provider_issuer_url = module.eks.cluster_oidc_issuer_url
@@ -26,7 +26,7 @@ module "external-dns" {
 }
 
 module "cert-manager" {
-  source = "github.com/nuuday/terraform-aws-eks-addons//modules/cert-manager?ref=v0.15.0"
+  source = "github.com/nuuday/terraform-aws-eks-addons//modules/cert-manager?ref=v0.17.2"
   # source                   = "../terraform-aws-eks-addons/modules/cert-manager"
   enable                   = var.cert_manager_enable
   email                    = var.cert_manager_email
@@ -40,7 +40,7 @@ module "cert-manager" {
 }
 
 module "ingress_controller_nginx" {
-  source = "github.com/nuuday/terraform-aws-eks-addons//modules/nginx-ingress-controller?ref=v0.15.0"
+  source = "github.com/nuuday/terraform-aws-eks-addons//modules/nginx-ingress-controller?ref=v0.17.2"
   # source            = "../terraform-aws-eks-addons/modules/nginx-ingress-controller"
   enable            = var.ingress_controller_ingress_enable && var.ingress_controller_ingress_flavour == "nginx"
   loadbalancer_fqdn = module.lb.this_lb_dns_name
@@ -57,13 +57,13 @@ module "ingress_controller_nginx" {
 }
 
 module "metrics-server" {
-  source = "github.com/nuuday/terraform-aws-eks-addons//modules/metrics-server?ref=v0.15.0"
+  source = "github.com/nuuday/terraform-aws-eks-addons//modules/metrics-server?ref=v0.17.2"
   # source = "../terraform-aws-eks-addons//modules/metrics-server"
   enable = var.metrics_server_enable
 }
 
 module "aws-node-termination-handler" {
-  source = "github.com/nuuday/terraform-aws-eks-addons//modules/aws-node-termination-handler?ref=v0.15.0"
+  source = "github.com/nuuday/terraform-aws-eks-addons//modules/aws-node-termination-handler?ref=v0.17.2"
   # source = "../terraform-aws-eks-addons//modules/aws-node-termination-handler"
   enable = var.aws_node_termination_handler_enable
 }
@@ -73,7 +73,7 @@ locals {
 }
 
 module "prometheus" {
-  source = "github.com/nuuday/terraform-aws-eks-addons//modules/prometheus-operator?ref=v0.17.1"
+  source = "github.com/nuuday/terraform-aws-eks-addons//modules/prometheus-operator?ref=v0.17.2"
   # source           = "../terraform-aws-eks-addons//modules/prometheus-operator"
   slack_webhook    = var.slack_webhook
   ingress_enabled  = length(var.route53_zones) > 0 ? true : false
