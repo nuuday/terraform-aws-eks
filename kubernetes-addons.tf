@@ -13,6 +13,7 @@ module "loki" {
   enable                   = var.loki_enable
   cluster_name             = var.cluster_name
   oidc_provider_issuer_url = module.eks.cluster_oidc_issuer_url
+  values_overrides         = var.loki_helm_values
   tags                     = var.tags
 }
 

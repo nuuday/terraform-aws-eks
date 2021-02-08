@@ -49,6 +49,10 @@ variable "prometheus_helm_values" {
   default = {}
 }
 
+variable "loki_helm_values" {
+  default = {}
+}
+
 variable "thanos" {
   type = object({
     bucket     = string
