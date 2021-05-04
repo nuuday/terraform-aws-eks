@@ -10,6 +10,12 @@ variable "cluster_default_workers_asg_max_size" {
   type        = number
 }
 
+variable "cluster_default_workers_asg_desired_capacity" {
+  default     = 1
+  description = "Desired worker asg size"
+  type        = number
+}
+
 variable "cluster_default_workers_instance_types" {
   default     = ["m5.large"]
   description = "Default worker subnets"

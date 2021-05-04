@@ -1,3 +1,4 @@
+
 locals {
   map_roles = concat([
     {
@@ -46,7 +47,7 @@ locals {
       spot_instance_pools           = 4
       asg_max_size                  = var.cluster_default_workers_asg_max_size
       asg_min_size                  = 0
-      asg_desired_capacity          = 1
+      asg_desired_capacity          = var.cluster_default_workers_asg_desired_capacity
       kubelet_extra_args            = "--node-labels=node.kubernetes.io/lifecycle=spot"
       asg_recreate_on_change        = true
       public_ip                     = false
@@ -60,7 +61,7 @@ locals {
 
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
-  version = "13.2.1"
+  version = "15.1.0"
 
   cluster_name = var.cluster_name
   subnets      = var.subnets
